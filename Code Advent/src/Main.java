@@ -15,27 +15,27 @@ public class Main {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             int day = Integer.parseInt(reader.readLine());
-            ChoseExercise(day);
+            choseExercise(day);
         } catch (IOException ioException){
             throw new IOException(ioException);
         }
     }
 
-    private static void ChoseExercise(int day) throws IOException {
+    private static void choseExercise(int day) throws IOException {
         switch (day){
             case 1 -> {
-                var lines = readFile(Path.of("src/year2025/day5/Ingredients.txt"));
-                Day1(lines);
-            }
-            case 2 -> {
                 var lines = readFile(Path.of("src/year2025/day1/Rotation.txt"));
-                Day2(lines);
+                day2(lines);
+            }
+            case 5 -> {
+                var lines = readFile(Path.of("src/year2025/day5/Ingredients.txt"));
+                day5(lines);
             }
             default -> System.out.println("You have inserted an invalid day!");
         }
     }
 
-    private static void Day1(List<String> lines){
+    private static void day5(List<String> lines){
         var separatorIdx = lines.indexOf("");
         List<Solution.Range> ranges = lines.subList(0,separatorIdx)
                 .stream().map(x -> {
@@ -47,12 +47,15 @@ public class Main {
                 .stream().map(Double::valueOf).toList();
 
         var freshIngredients = Solution.CountFreshIngredients(ranges, ingredients);
-        System.out.printf("Fresh ingredients: %2d\n", freshIngredients);
+        System.out.printf("Part 1: Fresh ingredients: %2d\n", freshIngredients);
     }
 
-    private static void Day2(List<String> lines){
-        var password = PasswordFinder.FindPassword(lines);
-        System.out.printf("The password is: %2d\n", password);
+    private static void day2(List<String> lines){
+        var password = PasswordFinder.findPassword(lines, true);
+        System.out.printf("Part1: The password is: %2d\n", password);
+
+        var password2 = PasswordFinder.findPassword(lines, false);
+        System.out.printf("Part2: The password is: %2d\n", password2);
     }
 
     private static List<String> readFile(Path filePath) throws IOException {
