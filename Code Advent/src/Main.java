@@ -1,3 +1,6 @@
+import year2015.day1.FloorFinder;
+import year2015.day2.CalculatePaperAmount;
+import year2015.day3.PresentDelivery;
 import year2025.day1.PasswordFinder;
 import year2025.day5.Solution;
 import java.io.BufferedReader;
@@ -10,18 +13,45 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        System.out.println("Select the day you want to execute:");
+        System.out.println("Select the year you want to execute:");
+        System.out.println("- 2015");
+        System.out.println("- 2025");
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            int day = Integer.parseInt(reader.readLine());
-            choseExercise(day);
+            int year = Integer.parseInt(reader.readLine());
+            choseYear(year);
         } catch (IOException ioException){
             throw new IOException(ioException);
         }
     }
 
-    private static void choseExercise(int day) throws IOException {
+    private static void choseYear(int year) throws IOException{
+        switch (year) {
+            case 2015 -> {
+                int day = printDayMessage();
+                chose2015Exercise(day);
+            }
+            case 2025 -> {
+                int day = printDayMessage();
+                chose2025Exercise(day);
+            }
+            default -> System.out.println("You have inserted an invalid year!");
+        }
+    }
+
+    private static int printDayMessage() throws IOException {
+        System.out.println("Select the day of the month you want to execute:");
+
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            return Integer.parseInt(reader.readLine());
+        } catch (IOException ioException){
+            throw new IOException(ioException);
+        }
+    }
+
+    private static void chose2025Exercise(int day) throws IOException {
         switch (day){
             case 1 -> {
                 var lines = readFile(Path.of("src/year2025/day1/Rotation.txt"));
@@ -32,6 +62,28 @@ public class Main {
                 day5(lines);
             }
             default -> System.out.println("You have inserted an invalid day!");
+        }
+    }
+
+    private static void chose2015Exercise(int day) throws IOException{
+        switch (day){
+            case 1 -> {
+                var lines = readFile(Path.of("src/year2015/day1/Input.txt"));
+                FloorFinder.findSantasFloor(lines.getFirst());
+            }
+            case 2-> {
+                var lines = readFile(Path.of("src/year2015/day2/Input.txt"));
+                CalculatePaperAmount.calculate(lines);
+            }
+            case 3 -> {
+                var lines = readFile(Path.of("src/year2015/day3/Input.txt"));
+                var repeated = PresentDelivery.presentsDelivery(lines.getFirst());
+                System.out.println("Repeated houses: " + repeated);
+
+                var robotSanta = PresentDelivery.presentsWithRoboSanta(lines.getFirst());
+                System.out.println(robotSanta + " houses received at least 1 present.");
+            }
+            default -> System.out.println("You have inserted an invalid day.");
         }
     }
 
@@ -48,6 +100,9 @@ public class Main {
 
         var freshIngredients = Solution.CountFreshIngredients(ranges, ingredients);
         System.out.printf("Part 1: Fresh ingredients: %2d\n", freshIngredients);
+
+        var validIds = Solution.CountValidIngredientIds(ranges);
+        System.out.printf("Part 2: Valid ingredient ids: %f\n", validIds);
     }
 
     private static void day2(List<String> lines){
