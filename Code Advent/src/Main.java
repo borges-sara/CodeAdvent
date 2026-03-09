@@ -1,6 +1,7 @@
 import year2015.day1.FloorFinder;
 import year2015.day2.CalculatePaperAmount;
 import year2015.day3.PresentDelivery;
+import year2015.day4.StockingStuffer;
 import year2025.day1.PasswordFinder;
 import year2025.day5.Solution;
 import java.io.BufferedReader;
@@ -82,6 +83,12 @@ public class Main {
 
                 var robotSanta = PresentDelivery.part2(lines.getFirst());
                 System.out.println(robotSanta + " houses received at least 1 present.");
+            }
+            case 4 -> {
+                var number = StockingStuffer.part1And2(5);
+                var number2 = StockingStuffer.part1And2(6);
+                System.out.println("PART1: MD5 hash with 5 zeroes: " + number );
+                System.out.println("PART2: MD5 hash with 6 zeroes: " + number2 );
             }
             default -> System.out.println("You have inserted an invalid day.");
         }
