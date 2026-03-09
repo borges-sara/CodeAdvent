@@ -77,10 +77,10 @@ public class Main {
             }
             case 3 -> {
                 var lines = readFile(Path.of("src/year2015/day3/Input.txt"));
-                var repeated = PresentDelivery.presentsDelivery(lines.getFirst());
+                var repeated = PresentDelivery.part1(lines.getFirst());
                 System.out.println("Repeated houses: " + repeated);
 
-                var robotSanta = PresentDelivery.presentsWithRoboSanta(lines.getFirst());
+                var robotSanta = PresentDelivery.part2(lines.getFirst());
                 System.out.println(robotSanta + " houses received at least 1 present.");
             }
             default -> System.out.println("You have inserted an invalid day.");

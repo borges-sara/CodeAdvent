@@ -3,7 +3,12 @@ package year2015.day3;
 import java.util.*;
 
 public class PresentDelivery {
-    public static int presentsDelivery(String line){
+    private static int xSanta = 0;
+    private static int ySanta = 0;
+    private static int xRobot = 0;
+    private static int yRobot = 0;
+
+    public static int part1(String line){
         int x = 0;
         int y =0;
 
@@ -43,12 +48,7 @@ public class PresentDelivery {
                 .count());
     }
 
-    public static int presentsWithRoboSanta(String line){
-        int xSanta = 0;
-        int ySanta = 0;
-        int xRobo = 0;
-        int yRobo = 0;
-
+    public static int part2(String line){
         //line = "^v^v^v^v^v";
 
         var santasMap = new HashMap<String, Integer>();
@@ -61,44 +61,13 @@ public class PresentDelivery {
                 .mapToObj(Character::toString)
                 .toList();
 
-        for (var i = 0; i < instructions.size(); i++){
-            switch (instructions.get(i)){
-                case ">" -> {
-                    if(i%2 == 0){
-                        xRobo+=1;
-                    } else {
-                        xSanta+=1;
-                    }
-                }
-                case "<" -> {
-                    if(i%2 == 0){
-                        xRobo-=1;
-                    } else {
-                        xSanta-=1;
-                    }
-                }
-                case "^" -> {
-                    if(i%2 == 0){
-                        yRobo+=1;
-                    } else {
-                        ySanta+=1;
-                    }
-                }
-                case "v" -> {
-                    if(i%2 == 0){
-                        yRobo-=1;
-                    } else {
-                        ySanta-=1;
-                    }
-                }
-            }
+        for (var i = 0; i < instructions.size(); i++) {
+            var evenIndex = i % 2 == 0;
 
-            if(i%2 == 0){
-                String position = xRobo + "," + yRobo;
-                robotsMap.merge(position, 1, (a, _) -> a +1);
-            } else{
-                String position = xSanta + "," + ySanta;
-                santasMap.merge(position, 1, (a, _) -> a + 1);
+            if(evenIndex){
+                updateRobotPosition(robotsMap, instructions.get(i));
+            } else {
+                updateSantasPosition(santasMap, instructions.get(i));
             }
         }
 
@@ -109,5 +78,29 @@ public class PresentDelivery {
 
         return Math.toIntExact(
                 santasMap.size());
+    }
+
+    private static void updateSantasPosition(HashMap<String, Integer> map, String instruction){
+        switch (instruction) {
+            case ">" -> xSanta +=1;
+            case "<" -> xSanta -=1;
+            case "^" -> ySanta +=1;
+            case "v" -> ySanta -=1;
+        }
+
+        String currentPosition = xSanta + "," + ySanta;
+        map.merge(currentPosition, 1, (a, _) -> a + 1);
+    }
+
+    private static void updateRobotPosition(HashMap<String, Integer> map, String instruction){
+        switch (instruction) {
+            case ">" -> xRobot +=1;
+            case "<" -> xRobot -=1;
+            case "^" -> yRobot +=1;
+            case "v" -> yRobot -=1;
+        }
+
+        String currentPosition = xRobot + "," + yRobot;
+        map.merge(currentPosition, 1, (a, _) -> a + 1);
     }
 }
