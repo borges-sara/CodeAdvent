@@ -2,6 +2,7 @@ import year2015.day1.FloorFinder;
 import year2015.day2.CalculatePaperAmount;
 import year2015.day3.PresentDelivery;
 import year2015.day4.StockingStuffer;
+import year2015.day5.NiceStringValidator;
 import year2025.day1.PasswordFinder;
 import year2025.day5.Solution;
 import java.io.BufferedReader;
@@ -89,6 +90,13 @@ public class Main {
                 var number2 = StockingStuffer.part1And2(6);
                 System.out.println("PART1: MD5 hash with 5 zeroes: " + number );
                 System.out.println("PART2: MD5 hash with 6 zeroes: " + number2 );
+            }
+            case 5 -> {
+                var lines = readFile(Path.of("src/year2015/day5/Input.txt"));
+                var niceStrings = NiceStringValidator.part1(lines);
+                var niceStrings2 = NiceStringValidator.part2(lines);
+                System.out.println("PART1: There are " + niceStrings + " nice strings.");
+                System.out.println("PART2: There are " + niceStrings2 + " nice strings.");
             }
             default -> System.out.println("You have inserted an invalid day.");
         }
