@@ -3,6 +3,8 @@ import year2015.day2.CalculatePaperAmount;
 import year2015.day3.PresentDelivery;
 import year2015.day4.StockingStuffer;
 import year2015.day5.NiceStringValidator;
+import year2015.day6.LightsContest;
+import year2016.day1.EaterBunnyHeadquarters;
 import year2025.day1.PasswordFinder;
 import year2025.day5.Solution;
 import java.io.BufferedReader;
@@ -17,6 +19,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Select the year you want to execute:");
         System.out.println("- 2015");
+        System.out.println("- 2016");
         System.out.println("- 2025");
 
         try {
@@ -33,6 +36,10 @@ public class Main {
             case 2015 -> {
                 int day = printDayMessage();
                 chose2015Exercise(day);
+            }
+            case 2016 -> {
+                int day = printDayMessage();
+                chose2016Exercise(day);
             }
             case 2025 -> {
                 int day = printDayMessage();
@@ -88,15 +95,20 @@ public class Main {
             case 4 -> {
                 var number = StockingStuffer.part1And2(5);
                 var number2 = StockingStuffer.part1And2(6);
-                System.out.println("PART1: MD5 hash with 5 zeroes: " + number );
-                System.out.println("PART2: MD5 hash with 6 zeroes: " + number2 );
+                System.out.println("(PART1) MD5 hash with 5 zeroes: " + number );
+                System.out.println("(PART2) MD5 hash with 6 zeroes: " + number2 );
             }
             case 5 -> {
                 var lines = readFile(Path.of("src/year2015/day5/Input.txt"));
                 var niceStrings = NiceStringValidator.part1(lines);
                 var niceStrings2 = NiceStringValidator.part2(lines);
-                System.out.println("PART1: There are " + niceStrings + " nice strings.");
-                System.out.println("PART2: There are " + niceStrings2 + " nice strings.");
+                System.out.println("(PART1) There are " + niceStrings + " nice strings.");
+                System.out.println("(PART2) There are " + niceStrings2 + " nice strings.");
+            }
+            case 6 -> {
+                var lines = readFile(Path.of("src/year2015/day6/Input.txt"));
+                var litLights = LightsContest.part1(lines);
+                System.out.println("(PART1) Lit lights: " + litLights);
             }
             default -> System.out.println("You have inserted an invalid day.");
         }
@@ -114,18 +126,29 @@ public class Main {
                 .stream().map(Double::valueOf).toList();
 
         var freshIngredients = Solution.CountFreshIngredients(ranges, ingredients);
-        System.out.printf("Part 1: Fresh ingredients: %2d\n", freshIngredients);
+        System.out.printf("(Part 1) Fresh ingredients: %2d\n", freshIngredients);
 
         var validIds = Solution.CountValidIngredientIds(ranges);
-        System.out.printf("Part 2: Valid ingredient ids: %f\n", validIds);
+        System.out.printf("(Part 2) Valid ingredient ids: %f\n", validIds);
     }
 
     private static void day2(List<String> lines){
         var password = PasswordFinder.findPassword(lines, true);
-        System.out.printf("Part1: The password is: %2d\n", password);
+        System.out.printf("(Part1) The password is: %2d\n", password);
 
         var password2 = PasswordFinder.findPassword(lines, false);
-        System.out.printf("Part2: The password is: %2d\n", password2);
+        System.out.printf("(Part2) The password is: %2d\n", password2);
+    }
+
+    private static void chose2016Exercise(int day) throws IOException {
+        switch (day) {
+            case 1 -> {
+                var lines = readFile(Path.of("src/year2016/day1/Input.txt"));
+                var result = EaterBunnyHeadquarters.part1(lines.getFirst());
+                System.out.println(result);
+            }
+            default -> System.out.println("You have inserted an invalid day.");
+        }
     }
 
     private static List<String> readFile(Path filePath) throws IOException {
