@@ -5,6 +5,7 @@ import year2015.day4.StockingStuffer;
 import year2015.day5.NiceStringValidator;
 import year2015.day6.LightsContest;
 import year2016.day1.EaterBunnyHeadquarters;
+import year2016.day2.BathroomSecurity;
 import year2025.day1.PasswordFinder;
 import year2025.day5.Solution;
 import java.io.BufferedReader;
@@ -146,6 +147,13 @@ public class Main {
                 var lines = readFile(Path.of("src/year2016/day1/Input.txt"));
                 var result = EaterBunnyHeadquarters.part1(lines.getFirst());
                 System.out.println(result);
+            }
+            case 2 -> {
+                var lines = readFile(Path.of("src/year2016/day2/Input.txt"));
+                var result = BathroomSecurity.part1(lines);
+                var result2 = BathroomSecurity.part2(lines);
+                System.out.println("(PART1): Code: " + result);
+                System.out.println("(PART2): Code: " + result2);
             }
             default -> System.out.println("You have inserted an invalid day.");
         }
